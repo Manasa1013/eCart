@@ -1,0 +1,103 @@
+@import url("https://fonts.googleapis.com/css2?family=Titillium+Web&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+
+:root{
+  --emerald-700 : #047857;
+  --emerald-600 : #059669;
+  --emerald-200 : #a7f3d0;
+  --emerald-50 : #ecfdf5;
+  --emerald-100 : #d1fae5;
+  --light-green: #a7f3d0;
+  --hr-green: #86efac;
+  --alert-red: #e87c03;
+  --primary-green: #34d399;
+  --white: #ffffff;
+  --secondary-white: #f3f4f6;
+  --red: red;
+  --lengthMd1 : 1rem;
+  --lengthMd2: 1.25rem;
+  --lengthMd3 : 1.5rem;
+  --lengthLg1 : 2rem;
+  }
+  
+  html {
+    width: 100%;
+    height: 100%;
+    overflow-x : hidden;
+  }
+  
+  body {
+    box-sizing: border-box;
+    font-family: "Titillium Web", sans-serif;
+    margin: 0;
+    padding: 0;
+    color: var(--emerald-700);
+    background-color: var(--secondary-white);
+    min-height: 100%;
+    width: 100%;
+  }
+  
+  .App {
+    min-height: 100%;
+    width: 100%;
+  }
+  
+  *,
+  *::after,
+  *::before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    outline-color: var(--emerald-600);
+    /* border: 1px solid red; */
+  }
+  ul , li{
+    padding: 0;
+    margin: 0;
+    margin-block: 0;
+    padding-inline: 0;
+    list-style: none;
+  }
+  .button{
+    border : none;
+    background-color: inherit;
+    color: inherit;
+    font-size: 1rem;
+
+  }
+  .icon--button{
+    padding: 0.13rem 0.25rem;
+  }
+  .grid-rows{
+    display: grid;
+  }
+  .flex { 
+    display: flex;
+  }
+  .columns-flex{
+    flex-direction: column;
+  }
+  .row-flex{
+    flex-direction: row;
+  }
+   aside {
+    grid-row-start : 1;
+    grid-row-end: auto;
+   }
+   .red-color {
+    color : var(--alert-red);
+   }
+  .link {
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--emerald-700);
+    padding: 0 0.25rem;
+  }
+   @media screen and (min-device-width : 768px){
+    main {
+        margin-left: 16rem;
+      }
+      .grid-rows{
+        gap : 2rem;
+      }
+   }
