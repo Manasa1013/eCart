@@ -1,0 +1,26 @@
+.single-product__container {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    flex-flow: wrap row;
+    gap: 0.25rem;
+    width: 50rem;
+    justify-self: center;
+    height: auto;
+}
+.center{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.single-product__container:hover {
+    box-shadow: 0 20px 40px -14px rgba(0, 0, 0, 0.25);
+}
+
+.single-product__container img:hover {
+    transition: all 1s;
+}

@@ -17,7 +17,7 @@ import { Home } from "./Pages/Home";
 
 import { useProduct } from "./Contexts/ProductContext";
 import { NotFound404 } from "./Pages/NotFound404";
-
+import { SingleProduct } from "./Pages/SingleProduct";
 function App() {
   const [openMenu, setOpenMenu] = useState(false);
   const [openSideBar, setOpenSideBar] = useState(false);
@@ -43,6 +43,7 @@ function App() {
             />
           }
         ></Route>
+        <Route path="/products/:productId" element={<SingleProduct />}></Route>
         <Route
           path="/cart"
           element={
@@ -61,7 +62,7 @@ function App() {
         ></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/mockman" element={<Mockman />}></Route>
-        <Route path="*" element={<NotFound404 />}></Route>
+        {/* <Route path="*" element={<NotFound404 />}></Route> */}
       </Routes>
       {isLoading && <Loader />}
       <Toast />

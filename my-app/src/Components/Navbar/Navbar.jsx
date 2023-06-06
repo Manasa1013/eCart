@@ -22,7 +22,7 @@ export function Navbar({ openMenu, setOpenMenu, openSideBar, setOpenSideBar }) {
           </div>
           <header className="inline">
             <a style={{ padding: "0 1rem" }} href="/" className="logo link">
-              eCart
+              leftiesStore
             </a>
           </header>
           <ul

@@ -66,7 +66,11 @@
   font-weight: 400;
   color: var(--dark-green);
 }
-
+.product--rating{
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--emerald-700);
+}
 .product--price {
   display: flex;
   gap: 0.25rem;
@@ -75,6 +79,6 @@
   margin-top: 0.1rem;
 }
 .product--price .strike--price {
-  text-decoration: var(--dark-green) line-through;
+  text-decoration: var(--emerald-700) line-through;
   font-size: small;
 }

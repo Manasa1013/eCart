@@ -42,9 +42,16 @@ export function ProductProvider({ children }) {
   useEffect(() => {
     fetchProducts();
   }, []);
+  function addToCartClickHandler(product) {}
   return (
     <ProductContext.Provider
-      value={{ state, dispatch, isLoading, setIsLoading }}
+      value={{
+        state,
+        dispatch,
+        isLoading,
+        setIsLoading,
+        addToCartClickHandler,
+      }}
     >
       {children}
     </ProductContext.Provider>
