@@ -6,13 +6,9 @@ import { useToast } from "../../Contexts/ToastContext";
 import "./Login.css";
 import { useProduct } from "../../Contexts/ProductContext";
 export function Login() {
-  const { auth, setAuth, loginHandler } = useAuth();
+  const { auth, setAuth, loginHandler, loginField, setLoginField } = useAuth();
   const { toast, setToast, hideToastBar } = useToast();
   const { isLoading, setIsLoading } = useProduct();
-  const [loginField, setLoginField] = useState({
-    emailID: "adarshbalika@gmail.com",
-    password: "Adarshbalika@1",
-  });
   const [loginErrorField, setLoginErrorField] = useState({
     emailError: "",
     passwordError: "",
@@ -58,7 +54,6 @@ export function Login() {
     }
   }
   async function loginSubmitHandler() {
-    setIsLoading(true);
     if (
       loginErrorField.emailError.length > 0 ||
       loginErrorField.passwordError.length > 0
@@ -68,9 +63,8 @@ export function Login() {
         isVisible: "show",
         message: "Please enter valid credentials",
       }));
-      // setIsLoading(false);
     } else if (
-      loginField.emailID.length <= 0 ||
+      loginField.email.length <= 0 ||
       loginField.password.length <= 0
     ) {
       setToast((prev) => ({
@@ -78,33 +72,22 @@ export function Login() {
         isVisible: "show",
         message: "Please enter credentials to log in",
       }));
-      // setIsLoading(false);
       return;
     } else {
       let user = loginField;
-      let res = await loginHandler({ user });
+      let res = await loginHandler(user);
       if (res.status === 200) {
-        // console.log(res, "at login component");
+        console.log(res, "at login component");
         setToast((prev) => ({
           ...prev,
           isVisible: "show",
-          message: `Successfully logged in ${res.data.firstName}`,
+          message: `Successfully logged in`,
         }));
-        localStorage.setItem(
-          "token",
-          JSON.stringify({ ...res.data.token, user })
-        );
-        await setAuth((prev) => ({ ...prev, token: res.data.token }));
-        // console.log(await auth, "auth after storing token");
-        if (!auth.token) return;
-
-        // console.log(location, "at logincomonent");
 
         resetLoginValues();
       } else {
-        // console.log("error at Login.jsx", await res);
+        console.log("error at Login.jsx", await res);
       }
-      // setIsLoading(false);
     }
     return validFieldID;
   }
@@ -112,7 +95,7 @@ export function Login() {
   function resetLoginValues() {
     setLoginField((prev) => ({
       ...prev,
-      emailID: "",
+      email: "",
       password: "",
     }));
   }
@@ -147,13 +130,13 @@ export function Login() {
             <input
               id="email--input"
               className="input"
-              name="emailID"
-              value={loginField.emailID}
+              name="email"
+              value={loginField.email}
               placeholder="jamescameron@mail.com"
               onInput={(e) => {
                 // console.log(e.target.value);
                 return setLoginField((prev) => {
-                  return { ...prev, emailID: e.target.value };
+                  return { ...prev, email: e.target.value };
                 });
               }}
               onBlur={(e) => {
@@ -161,7 +144,7 @@ export function Login() {
                 let errorAlertMessage = "Email id must be valid address";
                 validateFields(
                   emailRegexPattern,
-                  loginField.emailID,
+                  loginField.email,
                   "emailError",
                   errorAlertMessage,
                   loginErrorField,
@@ -213,7 +196,7 @@ export function Login() {
             >
               <i
                 className={
-                  showLoginPassword ? "fi fi-rs-eye-slash" : "fi fi-rs-eye"
+                  showLoginPassword ? "fi fi-rs-slash" : "fi fi-rs-eye"
                 }
               ></i>
             </button>
@@ -237,11 +220,7 @@ export function Login() {
               </button>
             )}
           </div>
-          <div>
-            <a href="/" id="forgot--password" className="link--secondary">
-              Forgot password?
-            </a>
-          </div>
+
           <hr></hr>
         </form>
         <div>

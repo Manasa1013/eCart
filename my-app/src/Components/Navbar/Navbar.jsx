@@ -67,12 +67,12 @@ export function Navbar({ openMenu, setOpenMenu, openSideBar, setOpenSideBar }) {
         </div>
         <ul className="user__list">
           <li>
-            <NavLink to="/" className="link">
+            <NavLink to="/cart" className="link">
               <i className="fi fi-rs-shopping-cart"></i>
             </NavLink>
           </li>
           <li>
-            <NavLink to="/" className="link">
+            <NavLink to="/wishlist" className="link">
               <i className="fi fi-rs-heart"></i>
             </NavLink>
           </li>

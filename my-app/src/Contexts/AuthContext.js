@@ -3,7 +3,7 @@ import { createContext, useContext, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 
 import { useToast } from "./ToastContext";
-// import { APISERVER } from "../components/utils/commonFunctions";
+import { useProduct } from "./ProductContext";
 export const AuthContext = createContext();
 
 export function useAuth() {
@@ -11,15 +11,19 @@ export function useAuth() {
 }
 
 export function AuthProvider({ children }) {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [auth, setAuth] = useState({
     token: "",
     user: {},
   });
+  const [loginField, setLoginField] = useState({
+    email: "adarshbalika@gmail.com",
+    password: "Adarshbalika@1",
+  });
   const { setToast } = useToast();
-  // const url = `http://localhost:8080`;
-
-  const navigate = useNavigate();
-  const location = useLocation();
+  // const { setIsLoading } = useProduct();
+  // console.log(setIsLoading);
   async function logoutHandler() {
     try {
       localStorage.removeItem("token");
@@ -27,13 +31,20 @@ export function AuthProvider({ children }) {
       console.error(err, "while logging out error");
     }
   }
-  async function loginHandler({ user }) {
+  async function loginHandler(user) {
     try {
-      // const response = await axios.post(`${url}/login`, user);
-      const response = await axios.post(`${APISERVER}/login`, user);
+      // setIsLoading(true);
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        body: JSON.stringify(user),
+      });
+      console.log({ response });
+      const data = await response.json();
       if (response.status === 200) {
         // console.log(response);
-        setAuth((prev) => ({ ...prev, token: response.data.token }));
+        localStorage.setItem("token", data.encodedToken);
+        localStorage.setItem("user", JSON.stringify(data.foundUser));
+        setAuth((prev) => ({ ...prev, token: data.encodedToken }));
         navigate(location?.state ? location?.state?.from?.pathname : "/", {
           replace: true,
         });
@@ -47,14 +58,23 @@ export function AuthProvider({ children }) {
       setToast((prev) => ({
         ...prev,
         isVisible: "show",
-        message: "Error in logging in",
+        message: "Error in logging in at authcontext",
       }));
       return err;
+    } finally {
+      // setIsLoading(false);
     }
   }
   return (
     <AuthContext.Provider
-      value={{ auth, setAuth, loginHandler, logoutHandler }}
+      value={{
+        auth,
+        setAuth,
+        loginHandler,
+        logoutHandler,
+        loginField,
+        setLoginField,
+      }}
     >
       {children}
     </AuthContext.Provider>

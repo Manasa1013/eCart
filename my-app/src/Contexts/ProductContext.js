@@ -5,7 +5,6 @@ import {
   useReducer,
   useState,
 } from "react";
-// import { finalProducts } from "../backend/db/products";
 import { ProductReducer, initialState } from "../reducers/ProductReducer";
 import { useToast } from "./ToastContext";
 
@@ -45,12 +44,7 @@ export function ProductProvider({ children }) {
   }, []);
   return (
     <ProductContext.Provider
-      value={{
-        state,
-        dispatch,
-        isLoading,
-        setIsLoading,
-      }}
+      value={{ state, dispatch, isLoading, setIsLoading }}
     >
       {children}
     </ProductContext.Provider>
