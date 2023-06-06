@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 
+import { useFilter } from "../../Contexts/FilterContext";
 import "./CategoryList.css";
 export function CategoryList({ categories }) {
+  const { filters, setFilters } = useFilter();
   return (
     <>
       <section className="">
@@ -13,7 +15,7 @@ export function CategoryList({ categories }) {
                 <Link to="/products">
                   <img
                     src={categoryImage}
-                    alt="Left-handed"
+                    alt="categoryImage"
                     className="responsive-img"
                   />
                 </Link>

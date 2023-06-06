@@ -1,13 +1,9 @@
 import { Link } from "react-router-dom";
 
+import { slider_1, slider_2, slider_3 } from "../../assets/list";
 import "./Slider.css";
-export function Slider({
-  categories,
-  increaseSlideIndex,
-  decreaseSlideIndex,
-  slideIndex,
-}) {
-  console.log({ categories });
+export function Slider({ increaseSlideIndex, decreaseSlideIndex, slideIndex }) {
+  const slideImages = [slider_1, slider_2, slider_3];
   return (
     <>
       <div className="grid-container">
@@ -16,10 +12,10 @@ export function Slider({
             <Link to="/products">
               <img
                 src={
-                  (categories.length > 0 && categories[slideIndex]) ||
-                  categories[0]
+                  (slideImages.length > 0 && slideImages[slideIndex]) ||
+                  slideImages[0]
                 }
-                alt={`Left-handed-accessory ${categories[slideIndex]}`}
+                alt={`Left-handed-accessory ${slideImages[slideIndex]}`}
               />
             </Link>
           </div>

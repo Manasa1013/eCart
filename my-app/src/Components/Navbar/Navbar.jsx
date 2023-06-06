@@ -74,6 +74,7 @@ export function Navbar({ openMenu, setOpenMenu, openSideBar, setOpenSideBar }) {
             <button
               className="button icon--button"
               onClick={() => setOpenSideBar((prev) => !prev)}
+              onBlur={() => setOpenSideBar(() => false)}
             >
               <i className="fi fi-rs-list"></i>
             </button>
@@ -83,6 +84,4 @@ export function Navbar({ openMenu, setOpenMenu, openSideBar, setOpenSideBar }) {
     </>
   );
 }
-// TODO : add navbar with styles in navbar folder
 // navbar with search box and filter products using search
-// responsive, just as spotify ones

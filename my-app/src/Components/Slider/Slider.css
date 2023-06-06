@@ -12,7 +12,12 @@
     position: absolute;
 }
 .slide img{
-    transform: scale(1.1);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.slide img:hover{
+    transform: scale(1.009);
 }
 .btn-arrow{
     position: absolute;

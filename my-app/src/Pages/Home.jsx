@@ -29,9 +29,8 @@ export function Home() {
   });
   return (
     <>
-      <main>
+      <main style={{ marginLeft: "0" }}>
         <Slider
-          categories={categories}
           increaseSlideIndex={increaseSlideIndex}
           decreaseSlideIndex={decreaseSlideIndex}
           slideIndex={slideIndex}
