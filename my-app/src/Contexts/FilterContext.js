@@ -8,19 +8,16 @@ export function useFilter() {
 }
 
 export function FilterProvider({ children }) {
-  const { products, setProducts } = useProduct();
+  const { products } = useProduct();
   const categoriesOfProducts = products?.reduce(
     (acc, curr) =>
       acc.includes(curr["category"]) ? [...acc] : [...acc, curr["category"]],
     []
   );
-  // .map((categoryItem) => ({
-  //   category: categoryItem,
-  //   isChecked: null,
-  // }));
+
   const [filters, setFilters] = useState({
     priceRange: 0,
-    // category: categoriesOfProducts,
+    singleCategory: null,
     category: [],
     rating: null,
     sortBy: null,
@@ -37,23 +34,7 @@ export function FilterProvider({ children }) {
       return filteredByPriceRange;
     }
   }
-  //   function filterByCategory(products, category) {
-  //     if (category.map(({ isChecked }) => isChecked).includes(null)) {
-  //       console.log("at category null ", { filterCategoryList: products });
-  //     }
-  //     return products;
 
-  //     const filteredCategories = category
-  //       ?.filter(({ isChecked }) => isChecked)
-  //       .map((categoryItem) => categoryItem.category);
-  //     const filteredByCategoryProducts = products?.reduce((acc, curr) => {
-  //       return filteredCategories.includes(curr.category)
-  //         ? [...acc, curr]
-  //         : [...acc];
-  //     }, []);
-  //     console.log({ filteredByCategoryProducts });
-  //     return filteredByCategoryProducts;
-  //   }
   function filterByCategory(products, category) {
     if (category.length === 0) return products;
     const filteredByCategoryProducts = products?.reduce((acc, curr) => {
@@ -61,6 +42,14 @@ export function FilterProvider({ children }) {
     }, []);
     console.log({ filteredByCategoryProducts });
     return filteredByCategoryProducts;
+  }
+  function filterBySingleCategory(products, singleCategory) {
+    if (singleCategory === null) return products;
+    const filteredBySingleCategoryProducts = products?.filter(
+      (product) => product.category === singleCategory
+    );
+    console.log({ filteredBySingleCategoryProducts });
+    return filteredBySingleCategoryProducts;
   }
   function filterByRating(products, rating) {
     if (rating === null) return products;
@@ -87,6 +76,7 @@ export function FilterProvider({ children }) {
       products,
       filters.priceRange
     );
+
     const filteredByCategory = filterByCategory(
       filteredByPriceRange,
       filters.category
@@ -112,6 +102,7 @@ export function FilterProvider({ children }) {
         filterByCategory,
         filterByRating,
         filterBySortPrice,
+        filterBySingleCategory,
         filteredProducts,
       }}
     >

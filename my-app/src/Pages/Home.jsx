@@ -1,15 +1,21 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-import { Kitchen, Books, Funstuff, Sports, Stationery } from "../assets/list";
+import {
+  KitchenItems,
+  Books,
+  FunStuff,
+  Sports,
+  Stationery,
+} from "../assets/list";
 import { CategoryList } from "../Components/CategoryList/CategoryList";
 import { Slider } from "../Components/Slider/Slider";
 export function Home() {
   const [slideIndex, setSlideIndex] = useState(0);
   const categories = [
-    { text: "Kitchen", image: Kitchen },
+    { text: "KitchenItems", image: KitchenItems },
     { text: "Books", image: Books },
-    { text: "Funstuff", image: Funstuff },
+    { text: "FunStuff", image: FunStuff },
     { text: "Sports", image: Sports },
     { text: "Stationery", image: Stationery },
   ];
