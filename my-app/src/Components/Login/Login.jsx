@@ -4,13 +4,14 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../Contexts/AuthContext";
 import { useToast } from "../../Contexts/ToastContext";
 import "./Login.css";
+import { useProduct } from "../../Contexts/ProductContext";
 export function Login() {
   const { auth, setAuth, loginHandler } = useAuth();
   const { toast, setToast, hideToastBar } = useToast();
-  const [loading, setLoading] = useState(false);
+  const { isLoading, setIsLoading } = useProduct();
   const [loginField, setLoginField] = useState({
-    emailID: "kritinandana@gmail.com",
-    password: "KritiN@1",
+    emailID: "adarshbalika@gmail.com",
+    password: "Adarshbalika@1",
   });
   const [loginErrorField, setLoginErrorField] = useState({
     emailError: "",
@@ -57,7 +58,7 @@ export function Login() {
     }
   }
   async function loginSubmitHandler() {
-    setLoading(true);
+    setIsLoading(true);
     if (
       loginErrorField.emailError.length > 0 ||
       loginErrorField.passwordError.length > 0
@@ -67,7 +68,7 @@ export function Login() {
         isVisible: "show",
         message: "Please enter valid credentials",
       }));
-      // setLoading(false);
+      // setIsLoading(false);
     } else if (
       loginField.emailID.length <= 0 ||
       loginField.password.length <= 0
@@ -77,7 +78,7 @@ export function Login() {
         isVisible: "show",
         message: "Please enter credentials to log in",
       }));
-      // setLoading(false);
+      // setIsLoading(false);
       return;
     } else {
       let user = loginField;
@@ -103,7 +104,7 @@ export function Login() {
       } else {
         // console.log("error at Login.jsx", await res);
       }
-      // setLoading(false);
+      // setIsLoading(false);
     }
     return validFieldID;
   }
@@ -120,7 +121,7 @@ export function Login() {
     let timer = setTimeout(() => {
       if (toast.isVisible === "show") {
         hideToastBar();
-        setLoading(false);
+        setIsLoading(false);
       }
     }, 3000);
     return () => clearTimeout(timer);
@@ -211,7 +212,9 @@ export function Login() {
               }}
             >
               <i
-                className={showLoginPassword ? "fa fa-eye-slash" : "fa fa-eye"}
+                className={
+                  showLoginPassword ? "fi fi-rs-eye-slash" : "fi fi-rs-eye"
+                }
               ></i>
             </button>
             <p className="para text--red" style={{ marginTop: "5px" }}>
@@ -220,7 +223,7 @@ export function Login() {
           </div>
 
           <div>
-            {loading ? (
+            {isLoading ? (
               <button
                 type="button"
                 className="button login"

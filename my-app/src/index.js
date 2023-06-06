@@ -8,6 +8,7 @@ import { makeServer } from "./server";
 import { ProductProvider } from "./Contexts/ProductContext";
 import { FilterProvider } from "./Contexts/FilterContext";
 import { ToastProvider } from "./Contexts/ToastContext";
+import { AuthProvider } from "./Contexts/AuthContext";
 
 // Call make Server
 makeServer();
@@ -16,11 +17,13 @@ ReactDOM.render(
   <React.StrictMode>
     <Router>
       <ToastProvider>
-        <ProductProvider>
-          <FilterProvider>
-            <App />
-          </FilterProvider>
-        </ProductProvider>
+        <AuthProvider>
+          <ProductProvider>
+            <FilterProvider>
+              <App />
+            </FilterProvider>
+          </ProductProvider>
+        </AuthProvider>
       </ToastProvider>
     </Router>
   </React.StrictMode>,

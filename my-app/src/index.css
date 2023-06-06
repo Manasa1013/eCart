@@ -11,9 +11,14 @@
   --hr-green: #86efac;
   --alert-red: #e87c03;
   --primary-green: #34d399;
+
   --white: #ffffff;
   --secondary-white: #f3f4f6;
+  --text-secondary: #cdcdcd;
+  --background-primary: #1b1b1b;
+  --background-secondary: #4e4e4e;
   --red: red;
+  --error-red: #e87c03;
   --lengthMd1 : 1rem;
   --lengthMd2: 1.25rem;
   --lengthMd3 : 1.5rem;

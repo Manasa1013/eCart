@@ -3,9 +3,8 @@ import { Routes, Route } from "react-router-dom";
 
 import Mockman from "mockman-js";
 import "./App.css";
-import { Navbar, Aside } from "./Components/index";
+import { Navbar, Login } from "./Components/index";
 import { Products } from "./Pages/Products";
-import { finalProducts } from "./backend/db/products";
 import { Home } from "./Pages/Home";
 import { Toast } from "./Components/Toast/Toast";
 import { Loader } from "./Components/Loader/Loader";
@@ -36,7 +35,7 @@ function App() {
             />
           }
         ></Route>
-        {/* <Route path="/login" element={<Login />}></Route> */}
+        <Route path="/login" element={<Login />}></Route>
         <Route path="/mockman" element={<Mockman />}></Route>
         <Route path="*" element={<Home />}></Route>
       </Routes>
