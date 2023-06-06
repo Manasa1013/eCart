@@ -6,7 +6,13 @@ import { CategoryList } from "../Components/CategoryList/CategoryList";
 import { Slider } from "../Components/Slider/Slider";
 export function Home() {
   const [slideIndex, setSlideIndex] = useState(0);
-  const categories = [Kitchen, Books, Funstuff, Sports, Stationery];
+  const categories = [
+    { text: "Kitchen", image: Kitchen },
+    { text: "Books", image: Books },
+    { text: "Funstuff", image: Funstuff },
+    { text: "Sports", image: Sports },
+    { text: "Stationery", image: Stationery },
+  ];
   function increaseSlideIndex() {
     setSlideIndex((indexValue) => {
       if (indexValue === categories.length - 1) indexValue = 0;
