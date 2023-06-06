@@ -1,4 +1,4 @@
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 
 import "./Navbar.css";
 import { useFilter } from "../../Contexts/FilterContext";
@@ -7,7 +7,7 @@ import { products } from "../../backend/db/products";
 export function Navbar({ openMenu, setOpenMenu, openSideBar, setOpenSideBar }) {
   const { filters, setFilters, filteredProducts } = useFilter();
   const navigate = useNavigate();
-  function getActiveLink() {}
+  const location = useLocation();
   return (
     <>
       <nav className="navbar-component">
@@ -45,7 +45,6 @@ export function Navbar({ openMenu, setOpenMenu, openSideBar, setOpenSideBar }) {
               className="search__input"
               placeholder={`Search for products`}
               value={filters.searchText}
-              autoFocus={true}
               onInput={(e) => {
                 setFilters((prev) => ({ ...prev, searchText: e.target.value }));
                 filteredProducts(products);
@@ -83,17 +82,21 @@ export function Navbar({ openMenu, setOpenMenu, openSideBar, setOpenSideBar }) {
             </NavLink>
           </li>
           <li className="icon--display">
-            <button
-              className="button icon--button"
-              onClick={() => setOpenSideBar((prev) => !prev)}
-              onBlur={() => setOpenSideBar(() => false)}
-            >
-              <i className="fi fi-rs-list"></i>
-            </button>
+            {location.pathname === "/" ? (
+              <NavLink to="/products" className="link">
+                <i className="fi fi-rs-list"></i>
+              </NavLink>
+            ) : (
+              <button
+                className="button icon--button"
+                onClick={() => setOpenSideBar((prev) => !prev)}
+              >
+                <i className="fi fi-rs-list"></i>
+              </button>
+            )}
           </li>
         </ul>
       </nav>
     </>
   );
 }
-// navbar with search box and filter products using search

@@ -7,14 +7,15 @@ import { Navbar, Aside } from "./Components/index";
 import { Products } from "./Pages/Products";
 import { finalProducts } from "./backend/db/products";
 import { Home } from "./Pages/Home";
+import { Toast } from "./Components/Toast/Toast";
+import { Loader } from "./Components/Loader/Loader";
+import { useProduct } from "./Contexts/ProductContext";
 
 function App() {
   const [openMenu, setOpenMenu] = useState(false);
   const [openSideBar, setOpenSideBar] = useState(false);
-  function getProducts() {
-    console.log({ finalProducts });
-  }
-  getProducts();
+  const { isLoading } = useProduct();
+
   return (
     <div className="App">
       <Navbar
@@ -35,16 +36,12 @@ function App() {
             />
           }
         ></Route>
+        {/* <Route path="/login" element={<Login />}></Route> */}
         <Route path="/mockman" element={<Mockman />}></Route>
-        <Route
-          path="*"
-          element={
-            <>
-              <h1>Home</h1>
-            </>
-          }
-        ></Route>
+        <Route path="*" element={<Home />}></Route>
       </Routes>
+      {isLoading && <Loader />}
+      <Toast />
     </div>
   );
 }

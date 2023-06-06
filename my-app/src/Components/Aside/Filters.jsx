@@ -3,7 +3,8 @@ import { useFilter } from "../../Contexts/FilterContext";
 import { useProduct } from "../../Contexts/ProductContext";
 
 export function Filters() {
-  const { products, setProducts } = useProduct();
+  const { state } = useProduct();
+  const { products } = state;
   const {
     filters,
     setFilters,

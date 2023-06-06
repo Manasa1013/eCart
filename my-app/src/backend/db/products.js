@@ -8,7 +8,7 @@ faker.seed(123);
  * You can add products of your wish with different attributes
  * */
 
-export const products = [
+export const fakeProducts = [
   {
     _id: uuid(),
     title: "You Can WIN",
@@ -32,7 +32,7 @@ export const products = [
   },
 ];
 
-export const finalProducts = [
+export const products = [
   {
     _id: "737e8e1-cf3f-e322-f3b1-df03ac2b2d37",
     src: [

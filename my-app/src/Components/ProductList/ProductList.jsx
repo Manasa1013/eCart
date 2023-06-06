@@ -5,11 +5,11 @@ import { useProduct } from "../../Contexts/ProductContext";
 import { useFilter } from "../../Contexts/FilterContext";
 
 export function ProductList() {
-  const { products, setProducts } = useProduct();
+  const { state } = useProduct();
   const { filteredProducts } = useFilter();
   function addToCartHandler() {}
   // console.log({ products });
-  const productsFiltered = filteredProducts(products);
+  const productsFiltered = filteredProducts(state.products);
   return (
     <>
       <section className="grid-container">

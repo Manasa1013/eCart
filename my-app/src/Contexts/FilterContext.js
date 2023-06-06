@@ -8,8 +8,9 @@ export function useFilter() {
 }
 
 export function FilterProvider({ children }) {
-  const { products } = useProduct();
-  const categoriesOfProducts = products?.reduce(
+  const { state } = useProduct();
+  const { products } = state;
+  const categoriesOfProducts = state.products?.reduce(
     (acc, curr) =>
       acc.includes(curr["category"]) ? [...acc] : [...acc, curr["category"]],
     []
@@ -72,13 +73,11 @@ export function FilterProvider({ children }) {
     return filteredBySortPriceProducts;
   }
   function filterBySearchText(products, searchText) {
+    console.log(typeof products);
     let updatedProducts = [...products];
     updatedProducts = updatedProducts?.filter((product) => {
       const { description, name, brand, category } = product;
-      console.log(
-        description.toLowerCase().includes(searchText.toLowerCase()),
-        "desc searchText"
-      );
+
       return (
         description.toLowerCase().includes(searchText.toLowerCase()) ||
         name.toLowerCase().includes(searchText.toLowerCase()) ||
@@ -111,7 +110,7 @@ export function FilterProvider({ children }) {
     console.log({ fullyFiltered });
     return fullyFiltered;
   }
-  filteredProducts(products);
+  filteredProducts(state.products);
   return (
     <FilterContext.Provider
       value={{

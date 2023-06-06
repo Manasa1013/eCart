@@ -1,5 +1,13 @@
-import { createContext, useContext, useState } from "react";
-import { finalProducts } from "../backend/db/products";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
+// import { finalProducts } from "../backend/db/products";
+import { ProductReducer, initialState } from "../reducers/ProductReducer";
+import { useToast } from "./ToastContext";
 
 export const ProductContext = createContext();
 
@@ -8,10 +16,42 @@ export function useProduct() {
 }
 
 export function ProductProvider({ children }) {
-  const [products, setProducts] = useState(finalProducts);
-  console.log({ products });
+  // const [products, setProducts] = useState(products);
+  const [state, dispatch] = useReducer(ProductReducer, initialState);
+  const { setToast } = useToast();
+  const [isLoading, setIsLoading] = useState(false);
+  async function fetchProducts() {
+    try {
+      setIsLoading(true);
+      const response = await fetch("/api/products");
+      const { products } = await response.json();
+      if (response.status === 200) {
+        console.log({ products }, "from fetch");
+        dispatch({ type: "SET_PRODUCTS", payload: products });
+      }
+    } catch (err) {
+      console.error(err, "at fetch Products");
+      setToast((prev) => ({
+        ...prev,
+        isVisible: "show",
+        message: "Error at displaying products",
+      }));
+    } finally {
+      setIsLoading(false);
+    }
+  }
+  useEffect(() => {
+    fetchProducts();
+  }, []);
   return (
-    <ProductContext.Provider value={{ products, setProducts }}>
+    <ProductContext.Provider
+      value={{
+        state,
+        dispatch,
+        isLoading,
+        setIsLoading,
+      }}
+    >
       {children}
     </ProductContext.Provider>
   );
