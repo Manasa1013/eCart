@@ -1,8 +1,12 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
 import "./Navbar.css";
+import { useFilter } from "../../Contexts/FilterContext";
+import { products } from "../../backend/db/products";
 
 export function Navbar({ openMenu, setOpenMenu, openSideBar, setOpenSideBar }) {
+  const { filters, setFilters, filteredProducts } = useFilter();
+  const navigate = useNavigate();
   function getActiveLink() {}
   return (
     <>
@@ -40,15 +44,23 @@ export function Navbar({ openMenu, setOpenMenu, openSideBar, setOpenSideBar }) {
               id="search-input"
               className="search__input"
               placeholder={`Search for products`}
-              // value={state.searchInput}
-              onInput={(e) => {}}
-              onBlur={(e) => {}}
+              value={filters.searchText}
+              autoFocus={true}
+              onInput={(e) => {
+                setFilters((prev) => ({ ...prev, searchText: e.target.value }));
+                filteredProducts(products);
+              }}
+              onBlur={(e) => {
+                navigate("/products");
+              }}
             />
             <button
               type="button"
               id="search-button"
               className="search__button"
-              onClick={() => {}}
+              onClick={(e) => {
+                navigate("/products");
+              }}
             >
               <i className="fi fi-rs-search"></i>
             </button>

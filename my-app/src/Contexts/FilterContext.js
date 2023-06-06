@@ -17,7 +17,7 @@ export function FilterProvider({ children }) {
 
   const [filters, setFilters] = useState({
     priceRange: 0,
-    singleCategory: null,
+    searchText: "",
     category: [],
     rating: null,
     sortBy: null,
@@ -71,6 +71,23 @@ export function FilterProvider({ children }) {
     console.log(filteredBySortPriceProducts, sortBy);
     return filteredBySortPriceProducts;
   }
+  function filterBySearchText(products, searchText) {
+    let updatedProducts = [...products];
+    updatedProducts = updatedProducts?.filter((product) => {
+      const { description, name, brand, category } = product;
+      console.log(
+        description.toLowerCase().includes(searchText.toLowerCase()),
+        "desc searchText"
+      );
+      return (
+        description.toLowerCase().includes(searchText.toLowerCase()) ||
+        name.toLowerCase().includes(searchText.toLowerCase()) ||
+        brand.toLowerCase().includes(searchText.toLowerCase()) ||
+        category.toLowerCase().includes(searchText.toLowerCase())
+      );
+    });
+    return updatedProducts;
+  }
   function filteredProducts(products) {
     const filteredByPriceRange = filterByPriceRange(
       products,
@@ -87,7 +104,12 @@ export function FilterProvider({ children }) {
       filters.sortBy
     );
     console.log({ filteredBySortPrice });
-    return filteredBySortPrice;
+    const fullyFiltered = filterBySearchText(
+      filteredBySortPrice,
+      filters.searchText
+    );
+    console.log({ fullyFiltered });
+    return fullyFiltered;
   }
   filteredProducts(products);
   return (
