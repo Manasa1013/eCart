@@ -1,0 +1,43 @@
+.slider{
+    margin: 0;
+    width: 100%;
+    max-width: 95rem;
+    height: 22rem;
+    position: relative;
+}
+.slide{
+    width: 100%;
+    max-width: 95rem;
+    height: 22rem;
+    position: absolute;
+}
+.slide img{
+    transform: scale(1.1);
+}
+.btn-arrow{
+    position: absolute;
+    width: 2.2rem;
+    height: 2.2rem;
+    padding: 0.25rem;
+    border: 2px solid transparent;
+    border-radius: 0.13rem;
+    z-index: 6;
+    cursor: pointer;
+    background-color: var(--white);
+    font-size: 1.125rem;
+    color: var(--emerald-700);
+}
+.btn-arrow:active{
+    transform: scale(1.1);
+}
+
+.btn-prev{
+    opacity: 1;
+    top: 45%;
+    left: 1%;
+}
+.btn-next{
+    opacity: 1;
+    top: 45%;
+    right: 1%;
+}

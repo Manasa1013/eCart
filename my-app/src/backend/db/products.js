@@ -38,6 +38,7 @@ export const finalProducts = [
     src: [
       "https://i0.wp.com/thelefthandshop.in/wp-content/uploads/2017/08/sg-test-lg2.jpg?fit=800%2C800&ssl=1",
       "http://placeimg.com/640/480/nature",
+      "C:/Users/manaa/Documents/GitHub/eCart/my-app/public/assets",
     ],
     description:
       "Quis molestiae tempora eligendi omnis quisquam quisquam quos.",

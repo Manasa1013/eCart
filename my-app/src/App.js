@@ -3,7 +3,8 @@ import { Routes, Route } from "react-router-dom";
 
 import Mockman from "mockman-js";
 import "./App.css";
-import { Navbar, Aside, ProductList } from "./Components/index";
+import { Navbar, Aside } from "./Components/index";
+import { Products } from "./Pages/Products";
 import { finalProducts } from "./backend/db/products";
 import { Home } from "./Pages/Home";
 
@@ -24,10 +25,14 @@ function App() {
       />
 
       <Routes>
+        <Route path="/" element={<Home />}></Route>
         <Route
-          path="/"
+          path="/products"
           element={
-            <Home openSideBar={openSideBar} setOpenSideBar={setOpenSideBar} />
+            <Products
+              openSideBar={openSideBar}
+              setOpenSideBar={setOpenSideBar}
+            />
           }
         ></Route>
         <Route path="/mockman" element={<Mockman />}></Route>

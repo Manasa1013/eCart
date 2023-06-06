@@ -93,6 +93,14 @@
     color: var(--emerald-700);
     padding: 0 0.25rem;
   }
+  .grid-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit , minmax(250px, 1fr));
+    gap: 1rem;
+    justify-items: center;
+    align-items: center;
+    justify-content: space-between;
+  }
    @media screen and (min-device-width : 768px){
     main {
         margin-left: 16rem;
