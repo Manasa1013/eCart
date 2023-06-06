@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import {
   KitchenItems,
   Books,
-  FunStuff,
+  Funstuff,
   Sports,
   Stationery,
 } from "../assets/list";
@@ -15,7 +15,7 @@ export function Home() {
   const categories = [
     { text: "KitchenItems", image: KitchenItems },
     { text: "Books", image: Books },
-    { text: "FunStuff", image: FunStuff },
+    { text: "Funstuff", image: Funstuff },
     { text: "Sports", image: Sports },
     { text: "Stationery", image: Stationery },
   ];

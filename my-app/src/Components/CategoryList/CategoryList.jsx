@@ -16,10 +16,9 @@ export function CategoryList({ categories }) {
                 <Link
                   to="/products"
                   onClick={(e) => {
-                    let categoryToBeAdded = filters.category.unshift(text);
                     setFilters((prev) => ({
                       ...prev,
-                      categoryToBeAdded,
+                      category: [...prev.category, text],
                     }));
 
                     filteredProducts(products, filters.category);
