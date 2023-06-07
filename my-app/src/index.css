@@ -68,22 +68,15 @@
     border-radius: 0.25rem;
     border: none;
     color: var(--white);
-    opacity: 0.8;
     width: 100%;
     font-weight: 550;
   }
 
-  .button:hover {
-    opacity: 1;
-  }
   .button--secondary {
     background-color: inherit;
     color: var(--emerald-700);
-    opacity: 0.8;
   }
-  .button--secondary:hover{
-      opacity: 1;
-  }
+  
   .icon--button{
     padding: 0.13rem 0.25rem;
   }

@@ -2,7 +2,6 @@
     padding: 0.5rem 0;
 }
 .button:hover {
-    opacity: 100%;
     transition: all 0.2s ease-in-out;
 }
 .button__primary {

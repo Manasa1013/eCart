@@ -6,7 +6,8 @@ export function WishlistReducer(state, action) {
   const { type, payload } = action;
   switch (type) {
     case "SET_WISHLIST":
-      return { ...state, wishlist: [...payload] };
+      const newWishlist = [...payload];
+      return { ...state, wishlist: newWishlist };
 
     default:
       return { ...state };

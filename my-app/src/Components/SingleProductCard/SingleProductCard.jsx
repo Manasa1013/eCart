@@ -19,6 +19,8 @@ export function SingleProductCard({ addToCartHandler, product }) {
   } = useWishlist();
   const { setToast } = useToast();
   const { auth } = useAuth();
+  const { addToWishlistHandler, removeFromWishlistHandler } = useWishlist();
+
   function addToCartClickHandler(item) {
     console.log({ item }, auth.token);
     auth.token
@@ -27,6 +29,26 @@ export function SingleProductCard({ addToCartHandler, product }) {
           ...prev,
           isVisible: "show",
           message: "Login to add",
+        }));
+  }
+  function addToWishlistClickHandler(item) {
+    console.log({ item }, auth.token);
+    auth.token
+      ? addToWishlistHandler("SET_WISHLIST", item)
+      : setToast((prev) => ({
+          ...prev,
+          isVisible: "show",
+          message: "Login to wishlist",
+        }));
+  }
+  function removeFromWishlistClickHandler(item) {
+    console.log({ item }, auth.token);
+    auth.token
+      ? removeFromWishlistHandler("SET_WISHLIST", item)
+      : setToast((prev) => ({
+          ...prev,
+          isVisible: "show",
+          message: "Login to remove from wishlist",
         }));
   }
   const isAdded = state?.cart?.find((cartItem) => cartItem._id === product._id);
@@ -83,8 +105,17 @@ export function SingleProductCard({ addToCartHandler, product }) {
                 {isCartLoading ? <Loader /> : "Add to Cart"}
               </button>
             )}
-            <button className="button button--secondary" onClick={() => {}}>
-              Wishlist
+            <button
+              className="button button--secondary"
+              onClick={() => {
+                {
+                  isWishlisted
+                    ? removeFromWishlistClickHandler(product)
+                    : addToWishlistClickHandler(product);
+                }
+              }}
+            >
+              {isWishlisted ? "Remove from Wishlist" : "Wishlist"}
             </button>
           </div>
         </div>

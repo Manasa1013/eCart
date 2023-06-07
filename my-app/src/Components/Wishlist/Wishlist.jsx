@@ -12,12 +12,15 @@ import { useWishlist } from "../../Contexts/WishlistContext";
 export function Wishlist({ product }) {
   const wishIcon = "fi fi-rs-heart ";
   const solidWishIcon = "fi fi-ss-heart red-color";
-  const { isCartLoading, state } = useCart();
+  const { isCartLoading, state, addToCartHandler } = useCart();
   const {
     state: { wishlist },
   } = useWishlist();
   const { setToast } = useToast();
   const { auth } = useAuth();
+
+  const { addToWishlistHandler, removeFromWishlistHandler } = useWishlist();
+
   function addToCartClickHandler(item) {
     console.log({ item }, auth.token);
     auth.token
@@ -26,6 +29,27 @@ export function Wishlist({ product }) {
           ...prev,
           isVisible: "show",
           message: "Login to add",
+        }));
+  }
+
+  function addToWishlistClickHandler(item) {
+    console.log({ item }, auth.token);
+    auth.token
+      ? addToWishlistHandler("SET_WISHLIST", item)
+      : setToast((prev) => ({
+          ...prev,
+          isVisible: "show",
+          message: "Login to wishlist",
+        }));
+  }
+  function removeFromWishlistClickHandler(item) {
+    console.log({ item }, auth.token);
+    auth.token
+      ? removeFromWishlistHandler("SET_WISHLIST", item)
+      : setToast((prev) => ({
+          ...prev,
+          isVisible: "show",
+          message: "Login to remove from wishlist",
         }));
   }
   const isAdded = state?.cart?.find((cartItem) => cartItem._id === product._id);
@@ -45,7 +69,16 @@ export function Wishlist({ product }) {
         </div>
       </Link>
       <div className="card-contents">
-        <button className="pos" onClick={() => {}}>
+        <button
+          className="pos"
+          onClick={() => {
+            {
+              isWishlisted
+                ? removeFromWishlistClickHandler(product)
+                : addToWishlistClickHandler(product);
+            }
+          }}
+        >
           <i className={isWishlisted ? solidWishIcon : wishIcon}></i>
         </button>
         <div className="product--desc">
@@ -83,10 +116,11 @@ export function Wishlist({ product }) {
             <button
               className="button button__primary"
               onClick={() => {
+                removeFromWishlistClickHandler(product);
                 addToCartClickHandler(product);
               }}
             >
-              {isCartLoading ? <Loader /> : "Add to Cart"}
+              {isCartLoading ? <Loader /> : "Move to Cart"}
             </button>
           )}
         </div>
