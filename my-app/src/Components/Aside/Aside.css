@@ -47,7 +47,16 @@
 .category-list{
     gap: 0.5rem;
 }
-
+.button-reset{
+    padding: 0.5rem 1rem;
+    background-color: inherit;
+    border: none;
+    color: var(--emerald-700);
+    opacity: 0.8;
+    width: 100%;
+    font-weight: 550;
+    font-size: 0.9rem;
+}
 .flex { 
     display: flex;
 }

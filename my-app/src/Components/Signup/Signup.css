@@ -62,21 +62,6 @@
     opacity: 0.6;
 }
 
-.button {
-    padding: 0.5rem 1rem;
-    background-color: var(--primary-green);
-    border-radius: 0.25rem;
-    border: none;
-    color: var(--white);
-    opacity: 0.8;
-    width: 100%;
-    font-weight: 550;
-}
-
-.button:hover {
-    opacity: 1;
-}
-
 hr {
     border: 0.1px solid var(--light-green);
     opacity: 0.6;

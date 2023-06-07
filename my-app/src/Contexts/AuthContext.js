@@ -17,6 +17,13 @@ export function AuthProvider({ children }) {
     token: "",
     user: {},
   });
+  const [field, setField] = useState({
+    firstName: "Taylor",
+    lastName: "Swift",
+    email: "taylor@gmail.com",
+    password: "Taylor@1",
+  });
+
   const [loginField, setLoginField] = useState({
     email: "adarshbalika@gmail.com",
     password: "Adarshbalika@1",
@@ -65,6 +72,50 @@ export function AuthProvider({ children }) {
       // setIsLoading(false);
     }
   }
+  async function signupHandler() {
+    try {
+      const response = await fetch("/api/auth/signup", {
+        method: "POST",
+        body: JSON.stringify(field),
+      });
+      const data = await response.json();
+      console.log({ data }, "at signup");
+
+      if (response.status === 201) {
+        setToast((prev) => ({
+          ...prev,
+          isVisible: "show",
+          message: `Successfully signed up ${data.createdUser.firstName}`,
+        }));
+        setAuth((prev) => ({
+          ...prev,
+          token: data.encodedToken,
+          user: {
+            ...prev.user,
+            firstName: data.createdUser.firstName,
+            lastName: "",
+            email: "",
+            password: "",
+          },
+        }));
+        navigate("");
+        // setFields((prev) => [response.data.data[0], ...prev]);
+        // setValidFieldID(() => response.data.data[0].id);
+
+        // console.log(auth);
+        return response.data;
+      } else {
+        console.log("failure", response);
+      }
+    } catch (err) {
+      setToast((prev) => ({
+        ...prev,
+        isVisible: "show",
+        message: "Error in signing up",
+      }));
+      console.error(err, "at catch of signupHandler");
+    }
+  }
   return (
     <AuthContext.Provider
       value={{
@@ -74,6 +125,9 @@ export function AuthProvider({ children }) {
         logoutHandler,
         loginField,
         setLoginField,
+        field,
+        setField,
+        signupHandler,
       }}
     >
       {children}

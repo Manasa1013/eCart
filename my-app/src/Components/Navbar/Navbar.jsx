@@ -88,7 +88,7 @@ export function Navbar({ openMenu, setOpenMenu, openSideBar, setOpenSideBar }) {
               </NavLink>
             ) : (
               <button
-                className="button icon--button"
+                className="icon--button"
                 onClick={() => setOpenSideBar((prev) => !prev)}
               >
                 <i className="fi fi-rs-list"></i>

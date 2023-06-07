@@ -61,7 +61,7 @@ export function SingleProductCard({ addToCartClickHandler, productId }) {
               Add to Cart
             </button>
             <button
-              className="button button__secondary"
+              className="button button--secondary"
               onClick={() => {
                 addToCartClickHandler(product);
                 //   setToast((prev) => ({

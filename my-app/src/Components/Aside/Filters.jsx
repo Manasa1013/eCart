@@ -38,7 +38,7 @@ export function Filters() {
               console.log("clicked clear", products);
               resetFilter(filters);
             }}
-            className="text-underline button"
+            className="text-underline button-reset"
           >
             Clear
           </button>
