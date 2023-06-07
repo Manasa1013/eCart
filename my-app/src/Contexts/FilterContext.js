@@ -88,8 +88,9 @@ export function FilterProvider({ children }) {
     return updatedProducts;
   }
   function filteredProducts(products) {
+    const unModifiedProducts = [...products];
     const filteredByPriceRange = filterByPriceRange(
-      products,
+      unModifiedProducts,
       filters.priceRange
     );
 

@@ -17,6 +17,7 @@ export function useProduct() {
 export function ProductProvider({ children }) {
   // const [products, setProducts] = useState(products);
   const [state, dispatch] = useReducer(ProductReducer, initialState);
+
   const { setToast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   async function fetchProducts() {
@@ -39,10 +40,26 @@ export function ProductProvider({ children }) {
       setIsLoading(false);
     }
   }
+
+  async function fetchSingleProduct(productId) {
+    try {
+      setIsLoading(true);
+      const response = await fetch(`/api/products/${productId}`);
+      const data = await response.json();
+      return data.product;
+    } catch (error) {
+      console.error(error, "error at fetchSingleProduct");
+    } finally {
+      setIsLoading(false);
+    }
+  }
+  function unModifiedProducts(state) {
+    let newState = { ...state, products: [...state.products] };
+    return newState.products;
+  }
   useEffect(() => {
     fetchProducts();
   }, []);
-  function addToCartClickHandler(product) {}
   return (
     <ProductContext.Provider
       value={{
@@ -50,7 +67,8 @@ export function ProductProvider({ children }) {
         dispatch,
         isLoading,
         setIsLoading,
-        addToCartClickHandler,
+        fetchProducts,
+        unModifiedProducts,
       }}
     >
       {children}

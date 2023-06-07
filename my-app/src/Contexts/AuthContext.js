@@ -45,13 +45,23 @@ export function AuthProvider({ children }) {
         method: "POST",
         body: JSON.stringify(user),
       });
-      console.log({ response });
       const data = await response.json();
+      console.log({ response }, { data });
       if (response.status === 200) {
-        // console.log(response);
         localStorage.setItem("token", data.encodedToken);
         localStorage.setItem("user", JSON.stringify(data.foundUser));
-        setAuth((prev) => ({ ...prev, token: data.encodedToken }));
+
+        setAuth((prev) => ({
+          ...prev,
+          token: data.encodedToken,
+          user: {
+            ...prev.user,
+            firstName: data.foundUser.firstName,
+            lastName: data.foundUser.lastName,
+            email: data.foundUser.email,
+          },
+        }));
+
         navigate(location?.state ? location?.state?.from?.pathname : "/", {
           replace: true,
         });
@@ -93,9 +103,8 @@ export function AuthProvider({ children }) {
           user: {
             ...prev.user,
             firstName: data.createdUser.firstName,
-            lastName: "",
-            email: "",
-            password: "",
+            lastName: data.createdUser.lastName,
+            email: data.createdUser.email,
           },
         }));
         navigate(location?.state ? location?.state?.from?.pathname : "/", {

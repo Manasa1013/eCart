@@ -3,10 +3,13 @@ import { Link } from "react-router-dom";
 import { getTrimmed } from "../../utils/CommonFunctions";
 import "./ProductCard.css";
 import "../ProductList/ProductList.css";
+import { useCart } from "../../Contexts/CartContext";
+import { Loader } from "../Loader/Loader";
 
-export function ProductCard({ product, addToCartClickHandler }) {
+export function ProductCard({ product, addToCartHandler }) {
   const wishIcon = "fi fi-rs-heart ";
   const solidWishIcon = "fi fi-ss-heart red-color";
+  const { isCartLoading } = useCart();
   return (
     <div className="card__container">
       <Link className="link" to={`/products/${product._id}`}>
@@ -32,8 +35,9 @@ export function ProductCard({ product, addToCartClickHandler }) {
         <div className="product--desc">
           {"  "}
           <span className="product--rating">
-            {product.rating.rate}
-            <i className="fi fi-rs-star bg-yellow"></i>({product.rating.count})
+            {product.rating.rate} ⭐
+            {/* <i className="fi fi-rs-star bg-yellow"></i> */}(
+            {product.rating.count})
           </span>
           <h4 className="product--name">
             {getTrimmed(product.name, 3)}
@@ -56,7 +60,7 @@ export function ProductCard({ product, addToCartClickHandler }) {
           <button
             className="button button__primary"
             onClick={() => {
-              addToCartClickHandler(product);
+              addToCartHandler("SET_CART", product);
               //   setToast((prev) => ({
               //     ...prev,
               //     isVisible: "show",
@@ -64,7 +68,7 @@ export function ProductCard({ product, addToCartClickHandler }) {
               //   }));
             }}
           >
-            Add to Cart
+            {isCartLoading ? <Loader /> : "Add to Cart"}
           </button>
         </div>
       </div>

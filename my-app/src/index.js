@@ -9,6 +9,7 @@ import { ProductProvider } from "./Contexts/ProductContext";
 import { FilterProvider } from "./Contexts/FilterContext";
 import { ToastProvider } from "./Contexts/ToastContext";
 import { AuthProvider } from "./Contexts/AuthContext";
+import { CartProvider } from "./Contexts/CartContext";
 
 // Call make Server
 makeServer();
@@ -19,9 +20,11 @@ ReactDOM.render(
       <ToastProvider>
         <AuthProvider>
           <ProductProvider>
-            <FilterProvider>
-              <App />
-            </FilterProvider>
+            <CartProvider>
+              <FilterProvider>
+                <App />
+              </FilterProvider>
+            </CartProvider>
           </ProductProvider>
         </AuthProvider>
       </ToastProvider>

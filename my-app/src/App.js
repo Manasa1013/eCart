@@ -7,13 +7,13 @@ import {
   Navbar,
   Login,
   Wishlist,
-  Cart,
   Toast,
   Loader,
   RequireAuth,
   Signup,
 } from "./Components/index";
 import { Products } from "./Pages/Products";
+import { Cart } from "./Pages/Cart";
 import { Home } from "./Pages/Home";
 
 import { useProduct } from "./Contexts/ProductContext";

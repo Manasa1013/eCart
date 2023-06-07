@@ -1,14 +1,14 @@
 import { getTrimmed } from "../../utils/CommonFunctions";
+import { Loader } from "../Loader/Loader";
 import "./SingleProductCard.css";
 import "../ProductCard/ProductCard.css";
 import "../ProductList/ProductList.css";
-import { useProduct } from "../../Contexts/ProductContext";
 
-export function SingleProductCard({ addToCartClickHandler, productId }) {
-  const { state } = useProduct();
-  const product = state?.products?.find((productItem) => {
-    return productId === productItem._id;
-  });
+export function SingleProductCard({
+  addToCartHandler,
+  product,
+  isCartLoading,
+}) {
   console.log({ product }, "at singleproductCard");
 
   return (
@@ -19,8 +19,8 @@ export function SingleProductCard({ addToCartClickHandler, productId }) {
             className="w-full"
             width="100%"
             height="auto"
-            src={product.src[1]}
-            alt={product.name}
+            src={product?.src[1]}
+            alt={product?.name}
           />
         </div>
         <div className="card-contents">
@@ -34,9 +34,9 @@ export function SingleProductCard({ addToCartClickHandler, productId }) {
               {/* {getTrimmed(product.description, 2)}.. */}
             </p>
             <p className="">
-              <span>{product.rating.rate}</span>
-              <i className="fi fi-rs-star bg-yellow"></i>({product.rating.count}
-              )
+              <span>{product.rating.rate}</span>⭐
+              {/* <i className="fi fi-rs-star bg-yellow"></i> */}(
+              {product.rating.count})
             </p>
             <div className="product--price">
               <span className="price">₹{product.price}</span>
@@ -50,20 +50,15 @@ export function SingleProductCard({ addToCartClickHandler, productId }) {
             <button
               className="button button__primary"
               onClick={() => {
-                addToCartClickHandler(product);
-                //   setToast((prev) => ({
-                //     ...prev,
-                //     isVisible: "show",
-                //     message: "Added to cart",
-                //   }));
+                addToCartHandler("SET_CART", product);
               }}
             >
-              Add to Cart
+              {isCartLoading ? <Loader /> : "Add to Cart"}
             </button>
             <button
               className="button button--secondary"
               onClick={() => {
-                addToCartClickHandler(product);
+                addToCartHandler(product);
                 //   setToast((prev) => ({
                 //     ...prev,
                 //     isVisible: "show",

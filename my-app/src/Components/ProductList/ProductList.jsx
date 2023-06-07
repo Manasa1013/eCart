@@ -3,13 +3,15 @@ import "./ProductList.css";
 import "../ProductCard/ProductCard.css";
 import { useProduct } from "../../Contexts/ProductContext";
 import { useFilter } from "../../Contexts/FilterContext";
+import { useCart } from "../../Contexts/CartContext";
 
 export function ProductList() {
-  const { state } = useProduct();
+  const {
+    state: { products },
+  } = useProduct();
   const { filteredProducts } = useFilter();
-  function addToCartHandler() {}
-  // console.log({ products });
-  const productsFiltered = filteredProducts(state.products);
+  const { addToCartHandler } = useCart();
+  const productsFiltered = filteredProducts([...products]);
   return (
     <>
       <section className="grid-container">
@@ -18,7 +20,7 @@ export function ProductList() {
             <ProductCard
               key={product._id}
               product={product}
-              addToCartClickHandler={addToCartHandler}
+              addToCartHandler={addToCartHandler}
             />
           );
         })}
