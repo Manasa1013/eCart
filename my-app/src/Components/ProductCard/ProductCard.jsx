@@ -7,11 +7,16 @@ import { useCart } from "../../Contexts/CartContext";
 import { Loader } from "../Loader/Loader";
 import { useAuth } from "../../Contexts/AuthContext";
 import { useToast } from "../../Contexts/ToastContext";
+import { useWishlist } from "../../Contexts/WishlistContext";
 
 export function ProductCard({ product, addToCartHandler }) {
   const wishIcon = "fi fi-rs-heart ";
   const solidWishIcon = "fi fi-ss-heart red-color";
   const { isCartLoading, state } = useCart();
+  const { addToWishlistHandler, removeFromWishlistHandler } = useWishlist();
+  const {
+    state: { wishlist },
+  } = useWishlist();
   const { setToast } = useToast();
   const { auth } = useAuth();
   function addToCartClickHandler(item) {
@@ -24,7 +29,29 @@ export function ProductCard({ product, addToCartHandler }) {
           message: "Login to add",
         }));
   }
+  function addToWishlistClickHandler(item) {
+    console.log({ item }, auth.token);
+    auth.token
+      ? addToWishlistHandler("SET_WISHLIST", item)
+      : setToast((prev) => ({
+          ...prev,
+          isVisible: "show",
+          message: "Login to wishlist",
+        }));
+  }
+  function removeFromWishlistClickHandler(item) {
+    console.log({ item }, auth.token);
+    auth.token
+      ? removeFromWishlistHandler("SET_WISHLIST", item)
+      : setToast((prev) => ({
+          ...prev,
+          isVisible: "show",
+          message: "Login to remove from wishlist",
+        }));
+  }
   const isAdded = state?.cart?.find((cartItem) => cartItem._id === product._id);
+  const isWishlisted = wishlist?.find((item) => item._id === product._id);
+
   return (
     <div className="card__container">
       <Link className="link" to={`/products/${product._id}`}>
@@ -42,10 +69,14 @@ export function ProductCard({ product, addToCartHandler }) {
         <button
           className="pos"
           onClick={() => {
-            // console.log("button clicked");
+            {
+              isWishlisted
+                ? removeFromWishlistClickHandler(product)
+                : addToWishlistClickHandler(product);
+            }
           }}
         >
-          <i className={product.isWishlisted ? solidWishIcon : wishIcon}></i>
+          <i className={isWishlisted ? solidWishIcon : wishIcon}></i>
         </button>
         <div className="product--desc">
           {"  "}

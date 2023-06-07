@@ -6,14 +6,15 @@ import "./App.css";
 import {
   Navbar,
   Login,
-  Wishlist,
   Toast,
   Loader,
   RequireAuth,
+  UserProfile,
   Signup,
 } from "./Components/index";
 import { Products } from "./Pages/Products";
 import { Cart } from "./Pages/Cart";
+import { WishlistPage } from "./Pages/WishlistPage";
 import { Home } from "./Pages/Home";
 
 import { useProduct } from "./Contexts/ProductContext";
@@ -66,7 +67,15 @@ function App() {
           path="/wishlist"
           element={
             <RequireAuth>
-              <Wishlist />
+              <WishlistPage />
+            </RequireAuth>
+          }
+        ></Route>
+        <Route
+          path="/profile"
+          element={
+            <RequireAuth>
+              <UserProfile />
             </RequireAuth>
           }
         ></Route>

@@ -1,16 +1,36 @@
+import { Link } from "react-router-dom";
 import { getTrimmed } from "../../utils/CommonFunctions";
 import { Loader } from "../Loader/Loader";
 import "./SingleProductCard.css";
 import "../ProductCard/ProductCard.css";
 import "../ProductList/ProductList.css";
 
-export function SingleProductCard({
-  addToCartHandler,
-  product,
-  isCartLoading,
-}) {
-  console.log({ product }, "at singleproductCard");
+import { useCart } from "../../Contexts/CartContext";
+import { useAuth } from "../../Contexts/AuthContext";
+import { useToast } from "../../Contexts/ToastContext";
+import { useWishlist } from "../../Contexts/WishlistContext";
 
+export function SingleProductCard({ addToCartHandler, product }) {
+  console.log({ product }, "at singleproductCard");
+  const { isCartLoading, state } = useCart();
+
+  const {
+    state: { wishlist },
+  } = useWishlist();
+  const { setToast } = useToast();
+  const { auth } = useAuth();
+  function addToCartClickHandler(item) {
+    console.log({ item }, auth.token);
+    auth.token
+      ? addToCartHandler("SET_CART", item)
+      : setToast((prev) => ({
+          ...prev,
+          isVisible: "show",
+          message: "Login to add",
+        }));
+  }
+  const isAdded = state?.cart?.find((cartItem) => cartItem._id === product._id);
+  const isWishlisted = wishlist?.find((item) => item._id === product._id);
   return (
     <div className="center">
       <div className="single-product__container">
@@ -47,25 +67,23 @@ export function SingleProductCard({
             </div>
           </div>
           <div className="button__container">
-            <button
-              className="button button__primary"
-              onClick={() => {
-                addToCartHandler("SET_CART", product);
-              }}
-            >
-              {isCartLoading ? <Loader /> : "Add to Cart"}
-            </button>
-            <button
-              className="button button--secondary"
-              onClick={() => {
-                addToCartHandler(product);
-                //   setToast((prev) => ({
-                //     ...prev,
-                //     isVisible: "show",
-                //     message: "Added to cart",
-                //   }));
-              }}
-            >
+            {isAdded ? (
+              <Link to="/cart">
+                <p className="button button__primary no-underline">
+                  Go to Cart <i className="fi fi-rs-shopping-cart"></i>
+                </p>
+              </Link>
+            ) : (
+              <button
+                className="button button__primary"
+                onClick={() => {
+                  addToCartClickHandler(product);
+                }}
+              >
+                {isCartLoading ? <Loader /> : "Add to Cart"}
+              </button>
+            )}
+            <button className="button button--secondary" onClick={() => {}}>
               Wishlist
             </button>
           </div>

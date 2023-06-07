@@ -82,6 +82,20 @@ export function AuthProvider({ children }) {
       // setIsLoading(false);
     }
   }
+  function logoutHandler() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    setAuth(() => ({
+      token: "",
+      user: {},
+    }));
+    setToast((prev) => ({
+      ...prev,
+      isVisible: "show",
+      message: "Logged out successfully",
+    }));
+    navigate("/");
+  }
   async function signupHandler() {
     try {
       const response = await fetch("/api/auth/signup", {
@@ -92,6 +106,8 @@ export function AuthProvider({ children }) {
       console.log({ data }, "at signup");
 
       if (response.status === 201) {
+        localStorage.setItem("token", data.encodedToken);
+        localStorage.setItem("user", JSON.stringify(data.createdUser));
         setToast((prev) => ({
           ...prev,
           isVisible: "show",

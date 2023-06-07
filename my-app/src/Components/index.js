@@ -7,6 +7,7 @@ import { Wishlist } from "./Wishlist/Wishlist";
 import { Toast } from "./Toast/Toast";
 import { Loader } from "./Loader/Loader";
 import { RequireAuth } from "./RequireAuth/RequireAuth";
+import { UserProfile } from "./UserProfile/UserProfile";
 import { Signup } from "./Signup/Signup";
 
 export {
@@ -19,5 +20,6 @@ export {
   Toast,
   Loader,
   RequireAuth,
+  UserProfile,
   Signup,
 };

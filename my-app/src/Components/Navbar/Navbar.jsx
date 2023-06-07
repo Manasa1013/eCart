@@ -79,7 +79,7 @@ export function Navbar({ openMenu, setOpenMenu, openSideBar, setOpenSideBar }) {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/" className="link">
+            <NavLink to="/profile" className="link">
               <i className="fi fi-rs-user">
                 {" "}
                 {/* {auth.token ? auth.user.firstName : "Login"} */}
