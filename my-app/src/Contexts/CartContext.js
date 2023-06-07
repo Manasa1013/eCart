@@ -33,12 +33,70 @@ export function CartProvider({ children }) {
         setToast((prev) => ({
           ...prev,
           isVisible: "show",
-          message: `Added ${product?.name} to cart`,
+          message: `Added product to cart`,
         }));
         dispatch({ type: actionType, payload: actionPayload });
       }
     } catch (err) {
       console.error(err, "at addToCartHandler");
+    } finally {
+      setIsCartLoading(() => false);
+    }
+  }
+  async function removeItemFromCartHandler(actionType, product) {
+    try {
+      setIsCartLoading(() => true);
+      console.log({ product }, "at remove");
+      const response = await fetch(`/api/user/cart/${product._id}`, {
+        method: "DELETE",
+        headers: { authorization: token },
+      });
+      console.log({ response }, "from removeItemFromCartHandler");
+
+      if (response.status === 200) {
+        const { cart } = await response.json();
+        console.log({ cart });
+        const actionPayload = cart;
+        setToast((prev) => ({
+          ...prev,
+          isVisible: "show",
+          message: `Removed product to cart`,
+        }));
+        dispatch({ type: actionType, payload: actionPayload });
+      }
+    } catch (err) {
+      console.error(err, "at removeItemFromCartHandler");
+    } finally {
+      setIsCartLoading(() => false);
+    }
+  }
+
+  async function updateCountHandler(actionType, product) {
+    const updateType =
+      actionType === "INCREASE_QUANTITY" ? "increment" : "decrement";
+    console.log({ updateType });
+    try {
+      setIsCartLoading(() => true);
+      const response = await fetch(`/api/user/cart/${product._id}`, {
+        method: "POST",
+        headers: { authorization: token },
+        body: JSON.stringify({ action: { type: updateType } }),
+      });
+      console.log({ response }, "from updateCountHandler");
+
+      if (response.status === 200) {
+        const { cart } = await response.json();
+        console.log({ cart });
+        const actionPayload = cart;
+        setToast((prev) => ({
+          ...prev,
+          isVisible: "show",
+          message: `Updated quantity in cart`,
+        }));
+        dispatch({ type: actionType, payload: actionPayload });
+      }
+    } catch (err) {
+      console.error(err, "at updateQuantityHandler");
     } finally {
       setIsCartLoading(() => false);
     }
@@ -51,6 +109,8 @@ export function CartProvider({ children }) {
         isCartLoading,
         setIsCartLoading,
         addToCartHandler,
+        removeItemFromCartHandler,
+        updateCountHandler,
       }}
     >
       {children}

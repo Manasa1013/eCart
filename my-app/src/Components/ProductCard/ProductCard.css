@@ -82,3 +82,6 @@
   text-decoration: var(--emerald-700) line-through;
   font-size: small;
 }
+.no-underline{
+  text-decoration: none;
+}

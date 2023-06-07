@@ -45,7 +45,7 @@ export const products = [
     brand: "RNS Club Star – Boys",
     name: "BATTING LEG GUARDS FOR LEFT HANDED BATSMAN",
     category: "Sports",
-    count: 0,
+
     isAdded: false,
     isWishlisted: false,
     price: 880,
@@ -66,7 +66,7 @@ export const products = [
     brand: "RNS Elite – Men",
     name: "BATTING LEG GUARDS FOR LEFT HANDED BATSMAN",
     category: "Sports",
-    count: 0,
+
     isAdded: false,
     isWishlisted: false,
     price: 1155,
@@ -86,7 +86,7 @@ export const products = [
     brand: "SG – Excelite – Men",
     name: "LEFT HANDED BATTING GLOVES BY SG",
     category: "Sports",
-    count: 0,
+
     isAdded: false,
     isWishlisted: false,
     price: 1679,
@@ -106,7 +106,7 @@ export const products = [
     brand: "RNS Club Star – Boys",
     name: "BATTING LEG GUARDS FOR LEFT HANDED BATSMAN",
     category: "Sports",
-    count: 0,
+
     isAdded: false,
     isWishlisted: false,
     price: 880,
@@ -126,7 +126,7 @@ export const products = [
     brand: "rena germany Kitchen Utility Set",
     name: "4 Pcs Knife Set (1 Each of Serrated Knife 110 mm, Plain Knife 90 mm, Serrated Knife 90 mm, Promo Peeler)",
     category: "KitchenItems",
-    count: 0,
+
     isAdded: false,
     isWishlisted: false,
     price: 220,
@@ -146,7 +146,7 @@ export const products = [
     brand: "autem",
     name: "Paring Knife Serrated Blade",
     category: "KitchenItems",
-    count: 0,
+
     isAdded: false,
     isWishlisted: false,
     price: 125,
@@ -166,7 +166,7 @@ export const products = [
     brand: "rena germany Kitchen Utility Set",
     name: "Cook Knife (165 mm)",
     category: "KitchenItems",
-    count: 0,
+
     isAdded: false,
     isWishlisted: false,
     price: 160,
@@ -186,7 +186,7 @@ export const products = [
     brand: "necessitatibus",
     name: "My Left Playing Cards",
     category: "Funstuff",
-    count: 0,
+
     isAdded: false,
     isWishlisted: false,
     price: 95,
@@ -207,7 +207,7 @@ export const products = [
     brand: "corporis",
     name: "T Shirt [Always Right]",
     category: "Funstuff",
-    count: 0,
+
     isAdded: false,
     isWishlisted: false,
     price: 599,
@@ -227,7 +227,7 @@ export const products = [
     brand: "atque",
     name: "T Shirt [Sooo Mainstream]",
     category: "Funstuff",
-    count: 0,
+
     isAdded: false,
     isWishlisted: false,
     price: 599,
@@ -248,7 +248,7 @@ export const products = [
     brand: "MyLeft",
     name: "Hand writing Development Guide cum Workbook for Left Handers",
     category: "Books",
-    count: 0,
+
     isAdded: false,
     isWishlisted: false,
     price: 225,
@@ -269,7 +269,7 @@ export const products = [
     brand: "Jack Fincher",
     name: "Lefties: The Origins & Consequences of Being Left-Handed Hardcover – Import, 1 February 1993",
     category: "Books",
-    count: 0,
+
     isAdded: false,
     isWishlisted: false,
     price: 2825,
@@ -290,7 +290,7 @@ export const products = [
     brand: "Maped",
     name: "Maped Geo Metric and MyLeft Geo Pouch Bundle",
     category: "Stationery",
-    count: 0,
+
     isAdded: false,
     isWishlisted: false,
     price: 198,
@@ -311,7 +311,7 @@ export const products = [
     brand: "Maped",
     name: "Shape 16cm – Left Handed",
     category: "Stationery",
-    count: 0,
+
     isAdded: false,
     isWishlisted: false,
     price: 199,

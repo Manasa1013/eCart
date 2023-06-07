@@ -3,11 +3,13 @@ import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import { useFilter } from "../../Contexts/FilterContext";
 import { products } from "../../backend/db/products";
+import { useAuth } from "../../Contexts/AuthContext";
 
 export function Navbar({ openMenu, setOpenMenu, openSideBar, setOpenSideBar }) {
   const { filters, setFilters, filteredProducts } = useFilter();
   const navigate = useNavigate();
   const location = useLocation();
+  const { auth } = useAuth();
   return (
     <>
       <nav className="navbar-component">
@@ -21,9 +23,9 @@ export function Navbar({ openMenu, setOpenMenu, openSideBar, setOpenSideBar }) {
             <span className="line"></span>
           </div>
           <header className="inline">
-            <a style={{ padding: "0 1rem" }} href="/" className="logo link">
+            <Link style={{ padding: "0 1rem" }} to="/" className="logo link">
               leftiesStore
-            </a>
+            </Link>
           </header>
           <ul
             style={{ padding: "0 0.5rem" }}
@@ -78,7 +80,10 @@ export function Navbar({ openMenu, setOpenMenu, openSideBar, setOpenSideBar }) {
           </li>
           <li>
             <NavLink to="/" className="link">
-              <i className="fi fi-rs-user"></i>
+              <i className="fi fi-rs-user">
+                {" "}
+                {/* {auth.token ? auth.user.firstName : "Login"} */}
+              </i>
             </NavLink>
           </li>
           <li className="icon--display">

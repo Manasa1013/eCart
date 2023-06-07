@@ -5,11 +5,26 @@ import "./ProductCard.css";
 import "../ProductList/ProductList.css";
 import { useCart } from "../../Contexts/CartContext";
 import { Loader } from "../Loader/Loader";
+import { useAuth } from "../../Contexts/AuthContext";
+import { useToast } from "../../Contexts/ToastContext";
 
 export function ProductCard({ product, addToCartHandler }) {
   const wishIcon = "fi fi-rs-heart ";
   const solidWishIcon = "fi fi-ss-heart red-color";
-  const { isCartLoading } = useCart();
+  const { isCartLoading, state } = useCart();
+  const { setToast } = useToast();
+  const { auth } = useAuth();
+  function addToCartClickHandler(item) {
+    console.log({ item }, auth.token);
+    auth.token
+      ? addToCartHandler("SET_CART", item)
+      : setToast((prev) => ({
+          ...prev,
+          isVisible: "show",
+          message: "Login to add",
+        }));
+  }
+  const isAdded = state?.cart?.find((cartItem) => cartItem._id === product._id);
   return (
     <div className="card__container">
       <Link className="link" to={`/products/${product._id}`}>
@@ -57,19 +72,22 @@ export function ProductCard({ product, addToCartHandler }) {
           </div>
         </div>
         <div className="button__container">
-          <button
-            className="button button__primary"
-            onClick={() => {
-              addToCartHandler("SET_CART", product);
-              //   setToast((prev) => ({
-              //     ...prev,
-              //     isVisible: "show",
-              //     message: "Added to cart",
-              //   }));
-            }}
-          >
-            {isCartLoading ? <Loader /> : "Add to Cart"}
-          </button>
+          {isAdded ? (
+            <Link to="/cart">
+              <p className="button button__primary no-underline">
+                Go to Cart <i className="fi fi-rs-shopping-cart"></i>
+              </p>
+            </Link>
+          ) : (
+            <button
+              className="button button__primary"
+              onClick={() => {
+                addToCartClickHandler(product);
+              }}
+            >
+              {isCartLoading ? <Loader /> : "Add to Cart"}
+            </button>
+          )}
         </div>
       </div>
     </div>

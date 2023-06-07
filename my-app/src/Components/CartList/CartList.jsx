@@ -5,7 +5,6 @@ import { PriceDetails } from "../PriceDetails/PriceDetails";
 export function CartList({
   incClickHandler,
   decClickHandler,
-  removeClickHandler,
   state,
   netPrice,
   netDiscount,
@@ -19,11 +18,10 @@ export function CartList({
         {state.cart.map((prod) => {
           return (
             <CartItem
-              key={prod.id}
+              key={prod._id}
               prod={prod}
-              incClickHandler={() => incClickHandler(prod)}
-              decClickHandler={() => decClickHandler(prod)}
-              removeClickHandler={() => removeClickHandler(prod)}
+              incClickHandler={(prod) => incClickHandler(prod)}
+              decClickHandler={(prod) => decClickHandler(prod)}
             />
           );
         })}

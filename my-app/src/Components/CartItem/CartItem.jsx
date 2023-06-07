@@ -1,18 +1,32 @@
 import { Link } from "react-router-dom";
 import "../ProductCard/ProductCard.css";
 import { getTrimmed } from "../../utils/CommonFunctions";
-export const CartItem = ({
-  prod,
-  incClickHandler,
-  decClickHandler,
-  removeClickHandler,
-}) => {
-  // const addIcon = "fas fa-cart";
-  // const wishIcon = "far fa-heart fa-lg";
-  // const solidWishIcon = "fas fa-heart fa-lg";
+import { useCart } from "../../Contexts/CartContext";
+import { useAuth } from "../../Contexts/AuthContext";
+
+export const CartItem = ({ prod }) => {
   const plusIcon = "fi fi-rs-plus ";
   const minusIcon = "fi fi-rs-minus ";
-
+  const { auth } = useAuth();
+  const { removeItemFromCartHandler, updateCountHandler } = useCart();
+  function removeClickHandler(item) {
+    auth.token
+      ? removeItemFromCartHandler("SET_CART", item)
+      : setToast((prev) => ({
+          ...prev,
+          isVisible: "show",
+          message: "Login to remove",
+        }));
+  }
+  function updateCountClickHandler(actionType, item) {
+    auth.token
+      ? updateCountHandler(actionType, item)
+      : setToast((prev) => ({
+          ...prev,
+          isVisible: "show",
+          message: "Login to update quantity",
+        }));
+  }
   return (
     <div className="cart-card__container">
       <div className="cart-card__item">
@@ -46,18 +60,22 @@ export const CartItem = ({
               type="button"
               className=".button button__icon"
               style={{ color: "var(--color-dgreen)" }}
-              onClick={() => incClickHandler()}
+              onClick={() => updateCountClickHandler("INCREASE_QUANTITY", prod)}
             >
               <i className={plusIcon}></i>
             </button>
             <small className="align-left">
-              {prod.count > 0 && `${prod.count}`}
+              {prod.qty > 0 && `${prod.qty}`}
             </small>
             <button
               type="button"
               className=".button button__icon"
               style={{ color: "var(--color-dgreen)" }}
-              onClick={() => decClickHandler()}
+              onClick={() => {
+                prod.qty > 1
+                  ? updateCountClickHandler("DECREASE_QUANTITY", prod)
+                  : removeClickHandler(prod);
+              }}
             >
               {/* <i className={minusIcon}></i> */}
               {"➖"}
@@ -69,14 +87,16 @@ export const CartItem = ({
         <button
           type="button"
           className="button button__secondary remove"
-          onClick={() => removeClickHandler()}
+          onClick={() => {
+            removeClickHandler(prod);
+          }}
         >
           Remove
         </button>
         <button
           type="button"
           className="button button__secondary move-wishlist"
-          onClick={() => removeClickHandler()}
+          onClick={() => removeClickHandler(prod)}
         >
           Move to Wishlist
         </button>
