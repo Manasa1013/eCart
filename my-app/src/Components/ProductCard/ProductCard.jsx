@@ -66,18 +66,6 @@ export function ProductCard({ product, addToCartHandler }) {
         </div>
       </Link>
       <div className="card-contents">
-        <button
-          className="pos"
-          onClick={() => {
-            {
-              isWishlisted
-                ? removeFromWishlistClickHandler(product)
-                : addToWishlistClickHandler(product);
-            }
-          }}
-        >
-          <i className={isWishlisted ? solidWishIcon : wishIcon}></i>
-        </button>
         <div className="product--desc">
           {"  "}
           <span className="product--rating">
@@ -103,6 +91,19 @@ export function ProductCard({ product, addToCartHandler }) {
           </div>
         </div>
         <div className="button__container">
+          <button
+            className="button button--secondary"
+            onClick={() => {
+              {
+                isWishlisted
+                  ? removeFromWishlistClickHandler(product)
+                  : addToWishlistClickHandler(product);
+              }
+            }}
+          >
+            {/* <i className={isWishlisted ? solidWishIcon : wishIcon}></i> */}
+            {isWishlisted ? "Remove from wishlist" : "Wishlist"}
+          </button>
           {isAdded ? (
             <Link to="/cart">
               <p className="button button__primary no-underline">

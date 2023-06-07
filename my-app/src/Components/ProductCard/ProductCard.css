@@ -20,9 +20,9 @@
   justify-content: space-between;
   flex-flow: wrap column;
   gap: 0.25rem;
-  width: 15rem;
+  width: 17rem;
   justify-self: center;
-  height: 28rem;
+  height: 30rem;
 }
 .card__container:hover {
   box-shadow: 0 20px 40px -14px rgba(0, 0, 0, 0.25);
