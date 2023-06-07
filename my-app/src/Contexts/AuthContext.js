@@ -98,11 +98,9 @@ export function AuthProvider({ children }) {
             password: "",
           },
         }));
-        navigate("");
-        // setFields((prev) => [response.data.data[0], ...prev]);
-        // setValidFieldID(() => response.data.data[0].id);
-
-        // console.log(auth);
+        navigate(location?.state ? location?.state?.from?.pathname : "/", {
+          replace: true,
+        });
         return response.data;
       } else {
         console.log("failure", response);
